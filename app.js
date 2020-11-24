@@ -17,7 +17,7 @@ app.get("/", documentController.maintable)
 app.get("/profit-table", documentController.profittable)
 app.get("/expense-table", documentController.expensetable)
 app.post("/profit-table", documentController.createProfit)
-
+app.post("/expense-table", documentController.createExpense)
 
 
 

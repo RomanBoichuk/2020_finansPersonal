@@ -1,3 +1,11 @@
 extends loyout
 block content
- h2 reserv
+ h2 Додати витрати
+ form.expense-table(action="/expense-table" method="POST")
+  p
+    input(name="cost" placeholder="Назва витрати" value="")
+  p  
+    input(name="prise" placeholder="Сума витрат" value="")
+  button ЗБЕРЕГТИ
+  
+  

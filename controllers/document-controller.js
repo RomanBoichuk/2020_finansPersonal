@@ -30,3 +30,20 @@ exports.createProfit = function (req, res){
 
   res.redirect("/")
 }
+
+exports.createExpense = function (req, res) {
+    var fileExpenseName = moment().format("DD-MM-YYYY") + "." + "expense" + "." + "json"
+    var fileExpense = []
+    try {
+      if (fs.existsSync(fileExpenseName)) {
+        fileExpense=fs.readFileSync(fileExpenseName, 'utf-8')
+        fileExpense=JSON.parse(fileExpense)
+      }
+    } catch(err) {
+      console.error(err)
+    }
+    fileExpense.push(req.body)
+    fs.writeFileSync(fileExpenseName, JSON.stringify(fileExpense))
+
+    res.redirect("/")
+}

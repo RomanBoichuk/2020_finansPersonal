@@ -1,3 +1,9 @@
 extends loyout
 block content
-  h1 PRIVIT
+  h2 Додати доходи
+  form.profit-table(action='/profit-table' method="POST")
+    p
+      input(name="cost" placeholder= "введіть дохід" value = "")
+    p
+      input(name="price" placeholder="сума доходу" value = "")
+    button ЗБЕРЕГТИ

@@ -1,0 +1,11 @@
+extends loyout
+block content
+  h2 Доходи за період 
+  h3 #{date}
+   
+  ul
+  each val, id in profit
+    li
+      span= val.income 
+      | 
+      span=val.sum + " " + "грн."

@@ -1,0 +1,14 @@
+extends loyout
+block content
+  h3 ПОКАЗАТИ ДОХОДИ
+  
+    form.cost(action="/show-profit-table" method="POST")
+      Datepicker
+        input(type="date" name="date" dateformat="dd-mm-yyyy" value="")
+        button ПОКАЗАТИ
+    
+  h3 ПОКАЗАТИ ВИТРАТИ        
+   
+    form.cost(action="/profit-table" method="GET")
+        input(type="date" name="date" value="d")
+        button ЗБЕРЕГТИ

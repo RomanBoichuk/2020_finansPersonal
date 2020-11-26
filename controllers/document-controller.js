@@ -15,7 +15,7 @@ exports.expensetable = function (req, res) {
 }
 
 exports.createProfit = function (req, res){
-  var fileProfitName = moment().format("DD-MM-YYYY")+".json"
+  var fileProfitName = moment().format("YYYY-MM-DD")+".json"
   var fileProfit = []
   try {
     if (fs.existsSync(fileProfitName)) {
@@ -32,7 +32,7 @@ exports.createProfit = function (req, res){
 }
 
 exports.createExpense = function (req, res) {
-    var fileExpenseName = moment().format("DD-MM-YYYY") + "." + "expense" + "." + "json"
+    var fileExpenseName = moment().format("YYYY-MM-DD") + "." + "expense" + "." + "json"
     var fileExpense = []
     try {
       if (fs.existsSync(fileExpenseName)) {
@@ -46,4 +46,29 @@ exports.createExpense = function (req, res) {
     fs.writeFileSync(fileExpenseName, JSON.stringify(fileExpense))
 
     res.redirect("/")
+}
+
+exports.calendartable = function (req, res) {
+  res.render("calendar")
+}
+
+exports.showprofittable = function (req, res) {
+  var datepicker = req.body.date + "." + "json"
+  var datepickerFile=[]
+  console.log(datepicker);
+  try{
+  if (fs.existsSync(datepicker)){
+    datepickerFile = fs.readFileSync(datepicker, 'utf-8')
+    datepickerFile = JSON.parse(datepickerFile)
+    }
+  } catch(err) {
+    console.error(err)
+  }
+  console.log("$$$$$$$$$$$");
+  console.log(datepickerFile);
+  console.log("--------------");
+  res.render("showprofit",{
+    profit:datepickerFile,
+    date:req.body.date
+  })
 }

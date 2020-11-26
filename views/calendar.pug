@@ -4,11 +4,11 @@ block content
   
     form.cost(action="/show-profit-table" method="POST")
       Datepicker
-        input(type="date" name="date" dateformat="dd-mm-yyyy" value="")
+        input(type="date" name="date"  value="")
         button ПОКАЗАТИ
     
   h3 ПОКАЗАТИ ВИТРАТИ        
    
-    form.cost(action="/profit-table" method="GET")
+    form.cost(action="/show-expense-table" method="POST")
         input(type="date" name="date" value="d")
         button ЗБЕРЕГТИ

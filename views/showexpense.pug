@@ -1,0 +1,11 @@
+extends loyout
+block content
+  h2 Доходи за період 
+  h3 #{date}
+   
+  ul
+  each val, id in expense
+    li
+      span= val.cost 
+      | 
+      span=val.prise + " " + "грн."

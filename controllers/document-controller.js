@@ -55,6 +55,24 @@ exports.calendartable = function (req, res) {
 exports.showprofittable = function (req, res) {
   var datepicker = req.body.date + "." + "json"
   var datepickerFile=[]
+  try{
+  if (fs.existsSync(datepicker)){
+    datepickerFile = fs.readFileSync(datepicker, 'utf-8')
+    datepickerFile = JSON.parse(datepickerFile)
+    }
+  } catch(err) {
+    console.error(err)
+  }
+  res.render("showprofit",{
+    profit:datepickerFile,
+    date:req.body.date
+  })
+}
+
+
+exports.showexpensetable = function (req, res) {
+  var datepicker = req.body.date + "." + "expense" + "." + "json"
+  var datepickerFile=[]
   console.log(datepicker);
   try{
   if (fs.existsSync(datepicker)){
@@ -67,8 +85,8 @@ exports.showprofittable = function (req, res) {
   console.log("$$$$$$$$$$$");
   console.log(datepickerFile);
   console.log("--------------");
-  res.render("showprofit",{
-    profit:datepickerFile,
+  res.render("showexpense",{
+    expense:datepickerFile,
     date:req.body.date
   })
 }

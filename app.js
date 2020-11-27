@@ -21,6 +21,7 @@ app.post("/expense-table", documentController.createExpense)
 app.get("/calendar", documentController.calendartable)
 app.post("/show-profit-table", documentController.showprofittable)
 app.post("/show-expense-table", documentController.showexpensetable)
+app.post("/show-profit-expense-table", documentController.showprofitexpensetable)
 
 
 app.listen(3002)

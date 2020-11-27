@@ -25,6 +25,7 @@ exports.createProfit = function (req, res){
   } catch(err) {
     console.error(err)
   }
+  console.log(fileProfit);
   fileProfit.push(req.body)
   fs.writeFileSync(fileProfitName, JSON.stringify(fileProfit))
 
@@ -44,7 +45,6 @@ exports.createExpense = function (req, res) {
     }
     fileExpense.push(req.body)
     fs.writeFileSync(fileExpenseName, JSON.stringify(fileExpense))
-
     res.redirect("/")
 }
 
@@ -63,9 +63,18 @@ exports.showprofittable = function (req, res) {
   } catch(err) {
     console.error(err)
   }
+
+  var priseSuma=0
+  for (var i = 0; i < datepickerFile.length; i++ ) {
+    var x
+    x=(Number(datepickerFile[i].sum))
+    priseSuma=priseSuma+x
+  }
+
   res.render("showprofit",{
     profit:datepickerFile,
-    date:req.body.date
+    date:req.body.date,
+    priseSuma:priseSuma
   })
 }
 
@@ -73,7 +82,6 @@ exports.showprofittable = function (req, res) {
 exports.showexpensetable = function (req, res) {
   var datepicker = req.body.date + "." + "expense" + "." + "json"
   var datepickerFile=[]
-  console.log(datepicker);
   try{
   if (fs.existsSync(datepicker)){
     datepickerFile = fs.readFileSync(datepicker, 'utf-8')
@@ -82,11 +90,64 @@ exports.showexpensetable = function (req, res) {
   } catch(err) {
     console.error(err)
   }
-  console.log("$$$$$$$$$$$");
-  console.log(datepickerFile);
-  console.log("--------------");
+
+  var priseSuma=0
+  for (var i = 0; i < datepickerFile.length; i++ ) {
+    var x
+    x=(Number(datepickerFile[i].prise))
+    priseSuma=priseSuma+x
+  }
+
   res.render("showexpense",{
     expense:datepickerFile,
+    date:req.body.date,
+    priseSuma:priseSuma
+  })
+}
+
+
+exports.showprofitexpensetable = function (req, res){
+  var datepickerProfit = req.body.date + "." + "json"
+  var datepickerProfitFile=[]
+  try{
+  if (fs.existsSync(datepickerProfit)){
+    datepickerProfitFile = fs.readFileSync(datepickerProfit, 'utf-8')
+    datepickerProfitFile = JSON.parse(datepickerProfitFile)
+    }
+  } catch(err) {
+    console.error(err)
+  }
+
+  var priseProfitSuma=0
+  for (var i = 0; i < datepickerProfitFile.length; i++ ) {
+    var x
+    x=(Number(datepickerProfitFile[i].sum))
+    priseProfitSuma=priseProfitSuma+x
+  }
+
+  var datepickerExpense = req.body.date + "." + "expense" + "." + "json"
+  var datepickerExpenseFile=[]
+  try{
+  if (fs.existsSync(datepickerExpense)){
+    datepickerExpenseFile = fs.readFileSync(datepickerExpense, 'utf-8')
+    datepickerExpenseFile = JSON.parse(datepickerExpenseFile)
+    }
+  } catch(err) {
+    console.error(err)
+  }
+
+  var priseExpenseSuma=0
+  for (var i = 0; i < datepickerExpenseFile.length; i++ ) {
+    var x
+    x=(Number(datepickerExpenseFile[i].prise))
+    priseExpenseSuma=priseExpenseSuma + x
+  }
+  var balansResult=priseProfitSuma-priseExpenseSuma
+
+  res.render("show-profit-expense",{
+    profit:datepickerProfitFile,
+    expense:datepickerExpenseFile,
+    balansResult:balansResult,
     date:req.body.date
   })
 }

@@ -1,14 +1,17 @@
 extends loyout
 block content
   h3 ПОКАЗАТИ ДОХОДИ
-  
     form.cost(action="/show-profit-table" method="POST")
       Datepicker
         input(type="date" name="date"  value="")
         button ПОКАЗАТИ
     
   h3 ПОКАЗАТИ ВИТРАТИ        
-   
     form.cost(action="/show-expense-table" method="POST")
         input(type="date" name="date" value="d")
-        button ЗБЕРЕГТИ
+        button ПОКАЗАТИ
+        
+  h3 ПОКАЗАТИ ДОХОДИ ВИТРАТИ        
+    form.cost(action="/show-profit-expense-table" method="POST")
+        input(type="date" name="date" value="d")
+        button ПОКАЗАТИ
